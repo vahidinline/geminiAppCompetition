@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{}"
+self.__REACT_LOADABLE_MANIFEST='{"../components/MDDropzone/index.js -> dropzone":{"id":32025,"files":["static/chunks/551b96f3.9ddfed872a11924f.js"]},"../components/MDEditor/index.js -> react-draft-wysiwyg":{"id":35108,"files":["static/chunks/2c386607.8be9afd037d50d1e.js"]}}';

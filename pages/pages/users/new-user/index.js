@@ -16,9 +16,7 @@ import DietData from '/pagesComponents/pages/users/new-user/components/DietData'
 import validations from '/pagesComponents/pages/users/new-user/schemas/validations';
 import form from '/pagesComponents/pages/users/new-user/schemas/form';
 import initialValues from '/pagesComponents/pages/users/new-user/schemas/initialValues';
-import Lottie from 'react-lottie';
-import Animation from '../../../../assets/lottie/submit.json';
-import { Typography } from '@mui/material';
+
 function getSteps() {
   return ['Patient Info', 'Medical History', 'Lifestyle Factors'];
 }
@@ -42,7 +40,7 @@ function NewUser() {
   const { formId, formField } = form;
   const currentValidation = validations[activeStep];
   const isLastStep = activeStep === steps.length - 1;
-  const [status, setStatus] = useState('success');
+
   const sleep = (ms) =>
     new Promise((resolve) => {
       setTimeout(resolve, ms);
@@ -72,7 +70,7 @@ function NewUser() {
 
       const data = await response.json();
       console.log('Patient created successfully:', data);
-      setStatus('success');
+
       // Optionally, you can show a success message or redirect the user
     } catch (error) {
       console.error('Error creating patient:', error);
@@ -84,14 +82,6 @@ function NewUser() {
     setActiveStep(0);
   };
 
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: Animation,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
-    },
-  };
   const handleSubmit = (values, actions) => {
     if (isLastStep) {
       submitForm(values, actions);
@@ -111,77 +101,61 @@ function NewUser() {
           justifyContent="center"
           alignItems="center"
           sx={{ height: '100%', mt: 8 }}>
-          {status === 'idle' && (
-            <Grid item xs={12} lg={8}>
-              <Formik
-                initialValues={initialValues}
-                validationSchema={currentValidation}
-                onSubmit={handleSubmit}>
-                {({ values, errors, touched, isSubmitting }) => (
-                  <Form id={formId} autoComplete="off">
-                    <Card sx={{ height: '100%' }}>
-                      <MDBox mx={2} mt={-3}>
-                        <Stepper activeStep={activeStep} alternativeLabel>
-                          {steps.map((label) => (
-                            <Step key={label}>
-                              <StepLabel>{label}</StepLabel>
-                            </Step>
-                          ))}
-                        </Stepper>
-                      </MDBox>
-                      <MDBox p={3}>
-                        <MDBox>
-                          {getStepContent(activeStep, {
-                            values,
-                            touched,
-                            formField,
-                            errors,
-                          })}
-                          <MDBox
-                            mt={2}
-                            width="100%"
-                            display="flex"
-                            justifyContent="space-between">
-                            {activeStep === 0 ? (
-                              <MDBox />
-                            ) : (
-                              <MDButton
-                                variant="gradient"
-                                color="light"
-                                onClick={handleBack}>
-                                back
-                              </MDButton>
-                            )}
+          <Grid item xs={12} lg={8}>
+            <Formik
+              initialValues={initialValues}
+              validationSchema={currentValidation}
+              onSubmit={handleSubmit}>
+              {({ values, errors, touched, isSubmitting }) => (
+                <Form id={formId} autoComplete="off">
+                  <Card sx={{ height: '100%' }}>
+                    <MDBox mx={2} mt={-3}>
+                      <Stepper activeStep={activeStep} alternativeLabel>
+                        {steps.map((label) => (
+                          <Step key={label}>
+                            <StepLabel>{label}</StepLabel>
+                          </Step>
+                        ))}
+                      </Stepper>
+                    </MDBox>
+                    <MDBox p={3}>
+                      <MDBox>
+                        {getStepContent(activeStep, {
+                          values,
+                          touched,
+                          formField,
+                          errors,
+                        })}
+                        <MDBox
+                          mt={2}
+                          width="100%"
+                          display="flex"
+                          justifyContent="space-between">
+                          {activeStep === 0 ? (
+                            <MDBox />
+                          ) : (
                             <MDButton
-                              // disabled={isSubmitting}
-                              type="submit"
                               variant="gradient"
-                              color="dark">
-                              {isLastStep ? 'send' : 'next'}
+                              color="light"
+                              onClick={handleBack}>
+                              back
                             </MDButton>
-                          </MDBox>
+                          )}
+                          <MDButton
+                            // disabled={isSubmitting}
+                            type="submit"
+                            variant="gradient"
+                            color="dark">
+                            {isLastStep ? 'send' : 'next'}
+                          </MDButton>
                         </MDBox>
                       </MDBox>
-                    </Card>
-                  </Form>
-                )}
-              </Formik>
-            </Grid>
-          )}
-        </Grid>
-        <Grid item xs={12} lg={21}>
-          {status === 'success' && (
-            <MDBox
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              height="50%">
-              <Lottie options={defaultOptions} height={400} width={400} />
-              <Typography variant="h4" color="textPrimary">
-                Patient created successfully
-              </Typography>
-            </MDBox>
-          )}
+                    </MDBox>
+                  </Card>
+                </Form>
+              )}
+            </Formik>
+          </Grid>
         </Grid>
       </MDBox>
       <Footer />
