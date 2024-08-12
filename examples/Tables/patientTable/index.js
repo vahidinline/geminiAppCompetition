@@ -30,7 +30,7 @@ import MDTypography from '/components/MDTypography';
 import MDBox from '/components/MDBox';
 
 // NextJS Material Dashboard 2 PRO examples
-import PatientTableCell from '/examples/Tables/PatientTable/PatientTableCell';
+import PatientTableCell from '../../../examples/Tables/patientTableCell';
 
 function PatientTable({ title, rows, shadow }) {
   const renderTableCells = rows.map((row, key) => {
