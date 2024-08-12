@@ -13,25 +13,25 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import Image from "next/image";
+import Image from 'next/image';
 
-import { useState } from "react";
+import { useState } from 'react';
 
 // react-images-viewer components
-import ImgsViewer from "react-images-viewer";
+// import ImgsViewer from "react-images-viewer";
 
 // @mui material components
-import Stack from "@mui/material/Stack";
+import Stack from '@mui/material/Stack';
 
 // NextJS Material Dashboard 2 PRO components
-import MDBox from "/components/MDBox";
+import MDBox from '/components/MDBox';
 
 // Images
-import image1 from "/assets/images/products/product-details-1.jpg";
-import image2 from "/assets/images/products/product-details-2.jpg";
-import image3 from "/assets/images/products/product-details-3.jpg";
-import image4 from "/assets/images/products/product-details-4.jpg";
-import image5 from "/assets/images/products/product-details-5.jpg";
+import image1 from '/assets/images/products/product-details-1.jpg';
+import image2 from '/assets/images/products/product-details-2.jpg';
+import image3 from '/assets/images/products/product-details-3.jpg';
+import image4 from '/assets/images/products/product-details-4.jpg';
+import image5 from '/assets/images/products/product-details-5.jpg';
 
 function ProductImages() {
   const [currentImage, setCurrentImage] = useState(image1);
@@ -41,8 +41,8 @@ function ProductImages() {
   const handleSetCurrentImage = ({ currentTarget }) => {
     setCurrentImage(
       currentTarget.firstChild.firstChild.src.replace(
-        "http://localhost:3000/",
-        "/"
+        'http://localhost:3000/',
+        '/'
       )
     );
     setImgsViewerCurrent(Number(currentTarget.id));
@@ -55,7 +55,7 @@ function ProductImages() {
 
   return (
     <MDBox>
-      <ImgsViewer
+      {/* <ImgsViewer
         imgs={[
           { src: image1.src },
           { src: image2.src },
@@ -69,23 +69,22 @@ function ProductImages() {
         onClickPrev={imgsViewerPrev}
         onClickNext={imgsViewerNext}
         backdropCloseable
-      />
+      /> */}
 
       <MDBox
         shadow="lg"
         borderRadius="lg"
         width="100%"
         onClick={openImgsViewer}
-        overflow="hidden"
-      >
+        overflow="hidden">
         <Image
           src={currentImage}
           alt="Product Image"
           style={{
-            width: "100%",
-            height: "100%",
-            display: "block",
-            objectFit: "cover",
+            width: '100%',
+            height: '100%',
+            display: 'block',
+            objectFit: 'cover',
           }}
         />
       </MDBox>
@@ -99,15 +98,14 @@ function ProductImages() {
             width="100%"
             height="5rem"
             minHeight="5rem"
-            sx={{ cursor: "pointer", objectFit: "cover" }}
+            sx={{ cursor: 'pointer', objectFit: 'cover' }}
             onClick={handleSetCurrentImage}
-            overflow="hidden"
-          >
+            overflow="hidden">
             <Image
               src={image1}
               alt="small image 1"
               sizes="100%"
-              style={{ width: "100%", height: "100%", display: "block" }}
+              style={{ width: '100%', height: '100%', display: 'block' }}
             />
           </MDBox>
           <MDBox
@@ -118,15 +116,14 @@ function ProductImages() {
             width="100%"
             height="5rem"
             minHeight="5rem"
-            sx={{ cursor: "pointer", objectFit: "cover" }}
+            sx={{ cursor: 'pointer', objectFit: 'cover' }}
             onClick={handleSetCurrentImage}
-            overflow="hidden"
-          >
+            overflow="hidden">
             <Image
               src={image2}
               alt="small image 2"
               sizes="100%"
-              style={{ width: "100%", height: "100%", display: "block" }}
+              style={{ width: '100%', height: '100%', display: 'block' }}
             />
           </MDBox>
           <MDBox
@@ -137,15 +134,14 @@ function ProductImages() {
             width="100%"
             height="5rem"
             minHeight="5rem"
-            sx={{ cursor: "pointer", objectFit: "cover" }}
+            sx={{ cursor: 'pointer', objectFit: 'cover' }}
             onClick={handleSetCurrentImage}
-            overflow="hidden"
-          >
+            overflow="hidden">
             <Image
               src={image3}
               alt="small image 3"
               sizes="100%"
-              style={{ width: "100%", height: "100%", display: "block" }}
+              style={{ width: '100%', height: '100%', display: 'block' }}
             />
           </MDBox>
           <MDBox
@@ -156,15 +152,14 @@ function ProductImages() {
             width="100%"
             height="5rem"
             minHeight="5rem"
-            sx={{ cursor: "pointer", objectFit: "cover" }}
+            sx={{ cursor: 'pointer', objectFit: 'cover' }}
             onClick={handleSetCurrentImage}
-            overflow="hidden"
-          >
+            overflow="hidden">
             <Image
               src={image4}
               alt="small image 4"
               sizes="100%"
-              style={{ width: "100%", height: "100%", display: "block" }}
+              style={{ width: '100%', height: '100%', display: 'block' }}
             />
           </MDBox>
           <MDBox
@@ -175,15 +170,14 @@ function ProductImages() {
             width="100%"
             height="5rem"
             minHeight="5rem"
-            sx={{ cursor: "pointer", objectFit: "cover" }}
+            sx={{ cursor: 'pointer', objectFit: 'cover' }}
             onClick={handleSetCurrentImage}
-            overflow="hidden"
-          >
+            overflow="hidden">
             <Image
               src={image5}
               alt="small image 5"
               sizes="100%"
-              style={{ width: "100%", height: "100%", display: "block" }}
+              style={{ width: '100%', height: '100%', display: 'block' }}
             />
           </MDBox>
         </Stack>
