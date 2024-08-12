@@ -1,12 +1,12 @@
-const withTM = require("next-transpile-modules")([
-  "@fullcalendar/common",
-  "@babel/preset-react",
-  "@fullcalendar/common",
-  "@fullcalendar/daygrid",
-  "@fullcalendar/interaction",
-  "@fullcalendar/react",
-  "@fullcalendar/timegrid",
-  "react-github-btn",
+const withTM = require('next-transpile-modules')([
+  '@fullcalendar/common',
+  '@babel/preset-react',
+  '@fullcalendar/common',
+  '@fullcalendar/daygrid',
+  '@fullcalendar/interaction',
+  '@fullcalendar/react',
+  '@fullcalendar/timegrid',
+  'react-github-btn',
 ]);
 
 module.exports = withTM({
@@ -14,8 +14,8 @@ module.exports = withTM({
   async redirects() {
     return [
       {
-        source: "/",
-        destination: "/dashboards/analytics",
+        source: '/',
+        destination: '/dashboards/patient',
         permanent: true,
       },
     ];

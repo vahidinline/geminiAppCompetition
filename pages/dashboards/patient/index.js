@@ -1,18 +1,3 @@
-/**
-=========================================================
-* NextJS Material Dashboard 2 PRO - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/nextjs-material-dashboard-pro
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useEffect, useState } from 'react';
 
 // @mui material components
@@ -23,13 +8,11 @@ import Tooltip from '@mui/material/Tooltip';
 import Icon from '@mui/material/Icon';
 import Card from '@mui/material/Card';
 
-// NextJS Material Dashboard 2 PRO components
 import MDBox from '/components/MDBox';
 import MDBadgeDot from '/components/MDBadgeDot';
 import MDButton from '/components/MDButton';
 import MDTypography from '/components/MDTypography';
 
-// NextJS Material Dashboard 2 PRO examples
 import DashboardLayout from '/examples/LayoutContainers/DashboardLayout';
 import DashboardNavbar from '/examples/Navbars/DashboardNavbar';
 import Footer from '/examples/Footer';
@@ -124,7 +107,7 @@ function patient() {
             <Grid item xs={12} sm={4}>
               <DefaultStatisticsCard
                 title="patients"
-                count="73"
+                count="142"
                 percentage={{
                   color: 'success',
                   value: '+55%',
@@ -137,74 +120,10 @@ function patient() {
                 }}
               />
             </Grid>
-            {/* <Grid item xs={12} sm={4}>
-              <DefaultStatisticsCard
-                title="customers"
-                count="3.200"
-                percentage={{
-                  color: 'success',
-                  value: '+12%',
-                  label: 'since last month',
-                }}
-                dropdown={{
-                  action: openCustomersDropdown,
-                  menu: renderMenu(customersDropdown, closeCustomersDropdown),
-                  value: customersDropdownValue,
-                }}
-              />
-            </Grid> */}
-            {/* <Grid item xs={12} sm={4}>
-              <DefaultStatisticsCard
-                title="avg. revenue"
-                count="$1.200"
-                percentage={{
-                  color: 'secondary',
-                  value: '200',
-                  label: 'since last month',
-                }}
-                dropdown={{
-                  action: openRevenueDropdown,
-                  menu: renderMenu(revenueDropdown, closeRevenueDropdown),
-                  value: revenueDropdownValue,
-                }}
-              />
-            </Grid> */}
           </Grid>
         </MDBox>
-        <MDBox mb={3}>
+        {/* <MDBox mb={3}>
           <Grid container spacing={3}>
-            {/* <Grid item xs={12} sm={6} lg={4}>
-              <DefaultLineChart
-                title="Treatment Adherence Chart"
-                description={
-                  <MDBox display="flex" justifyContent="space-between">
-                    <MDBox display="flex" ml={-1}>
-                      <MDBadgeDot
-                        color="info"
-                        size="sm"
-                        badgeContent="Medication Compliance"
-                      />
-                    </MDBox>
-                    <MDBox mt={-4} mr={-1} position="absolute" right="1.5rem">
-                      <Tooltip
-                        title="See which ads perform better"
-                        placement="left"
-                        arrow>
-                        <MDButton
-                          variant="outlined"
-                          color="secondary"
-                          size="small"
-                          circular
-                          iconOnly>
-                          <Icon>priority_high</Icon>
-                        </MDButton>
-                      </Tooltip>
-                    </MDBox>
-                  </MDBox>
-                }
-                chart={defaultLineChartData}
-              />
-            </Grid> */}
             <Grid item xs={12} sm={12} lg={12}>
               <DefaultLineChart
                 title="Patient Progress Chart"
@@ -226,7 +145,7 @@ function patient() {
                     </MDBox>
                     <MDBox mt={-4} mr={-1} position="absolute" right="1.5rem">
                       <Tooltip
-                        title="See which ads perform better"
+                        title="See patient progress"
                         placement="left"
                         arrow>
                         <MDButton
@@ -245,17 +164,53 @@ function patient() {
               />
             </Grid>
           </Grid>
-        </MDBox>
+        </MDBox> */}
         <MDBox mb={3}>
           <Grid container spacing={3}>
-            <Grid item xs={12} lg={8}>
+            <Grid item xs={12} lg={4}>
               <HorizontalBarChart
                 title="Patient by age"
                 chart={horizontalBarChartData}
               />
             </Grid>
-            <Grid item xs={12} lg={4}>
-              <PatientTable title="Patient by Gender" rows={patientTableData} />
+            <Grid item xs={12} sm={12} lg={8}>
+              <DefaultLineChart
+                title="Patient Progress Chart"
+                description={
+                  <MDBox display="flex" justifyContent="space-between">
+                    <MDBox display="flex" ml={-1}>
+                      <MDBadgeDot
+                        color="info"
+                        size="sm"
+                        badgeContent="Medication Compliance"
+                      />
+                    </MDBox>
+                    <MDBox display="flex" ml={-1}>
+                      <MDBadgeDot
+                        color="dark"
+                        size="sm"
+                        badgeContent="Mobility Score"
+                      />
+                    </MDBox>
+                    <MDBox mt={-4} mr={-1} position="absolute" right="1.5rem">
+                      <Tooltip
+                        title="See patient progress"
+                        placement="left"
+                        arrow>
+                        <MDButton
+                          variant="outlined"
+                          color="secondary"
+                          size="small"
+                          circular
+                          iconOnly>
+                          <Icon>priority_high</Icon>
+                        </MDButton>
+                      </Tooltip>
+                    </MDBox>
+                  </MDBox>
+                }
+                chart={defaultLineChartData}
+              />
             </Grid>
           </Grid>
         </MDBox>

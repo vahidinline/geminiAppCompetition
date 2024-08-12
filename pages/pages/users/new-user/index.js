@@ -16,7 +16,9 @@ import DietData from '/pagesComponents/pages/users/new-user/components/DietData'
 import validations from '/pagesComponents/pages/users/new-user/schemas/validations';
 import form from '/pagesComponents/pages/users/new-user/schemas/form';
 import initialValues from '/pagesComponents/pages/users/new-user/schemas/initialValues';
-
+import Lottie from 'react-lottie';
+import Animation from '../../../../assets/lottie/submit.json';
+import { Typography } from '@mui/material';
 function getSteps() {
   return ['Patient Info', 'Medical History', 'Lifestyle Factors'];
 }
@@ -40,7 +42,7 @@ function NewUser() {
   const { formId, formField } = form;
   const currentValidation = validations[activeStep];
   const isLastStep = activeStep === steps.length - 1;
-
+  const [status, setStatus] = useState('success');
   const sleep = (ms) =>
     new Promise((resolve) => {
       setTimeout(resolve, ms);
@@ -53,13 +55,16 @@ function NewUser() {
 
     try {
       // Send the form data to the backend
-      const response = await fetch('http://localhost:8090/patient', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
-      });
+      const response = await fetch(
+        `https://aibackendfitlinez.azurewebsites.net/patient`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(values),
+        }
+      );
 
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -67,18 +72,26 @@ function NewUser() {
 
       const data = await response.json();
       console.log('Patient created successfully:', data);
-
+      setStatus('success');
       // Optionally, you can show a success message or redirect the user
     } catch (error) {
       console.error('Error creating patient:', error);
       // Optionally, show an error message to the user
     }
 
-    //actions.setSubmitting(false);
-    // actions.resetForm();
-    // setActiveStep(0);
+    actions.setSubmitting(false);
+    actions.resetForm();
+    setActiveStep(0);
   };
 
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: Animation,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
   const handleSubmit = (values, actions) => {
     if (isLastStep) {
       submitForm(values, actions);
@@ -98,61 +111,77 @@ function NewUser() {
           justifyContent="center"
           alignItems="center"
           sx={{ height: '100%', mt: 8 }}>
-          <Grid item xs={12} lg={8}>
-            <Formik
-              initialValues={initialValues}
-              validationSchema={currentValidation}
-              onSubmit={handleSubmit}>
-              {({ values, errors, touched, isSubmitting }) => (
-                <Form id={formId} autoComplete="off">
-                  <Card sx={{ height: '100%' }}>
-                    <MDBox mx={2} mt={-3}>
-                      <Stepper activeStep={activeStep} alternativeLabel>
-                        {steps.map((label) => (
-                          <Step key={label}>
-                            <StepLabel>{label}</StepLabel>
-                          </Step>
-                        ))}
-                      </Stepper>
-                    </MDBox>
-                    <MDBox p={3}>
-                      <MDBox>
-                        {getStepContent(activeStep, {
-                          values,
-                          touched,
-                          formField,
-                          errors,
-                        })}
-                        <MDBox
-                          mt={2}
-                          width="100%"
-                          display="flex"
-                          justifyContent="space-between">
-                          {activeStep === 0 ? (
-                            <MDBox />
-                          ) : (
+          {status === 'idle' && (
+            <Grid item xs={12} lg={8}>
+              <Formik
+                initialValues={initialValues}
+                validationSchema={currentValidation}
+                onSubmit={handleSubmit}>
+                {({ values, errors, touched, isSubmitting }) => (
+                  <Form id={formId} autoComplete="off">
+                    <Card sx={{ height: '100%' }}>
+                      <MDBox mx={2} mt={-3}>
+                        <Stepper activeStep={activeStep} alternativeLabel>
+                          {steps.map((label) => (
+                            <Step key={label}>
+                              <StepLabel>{label}</StepLabel>
+                            </Step>
+                          ))}
+                        </Stepper>
+                      </MDBox>
+                      <MDBox p={3}>
+                        <MDBox>
+                          {getStepContent(activeStep, {
+                            values,
+                            touched,
+                            formField,
+                            errors,
+                          })}
+                          <MDBox
+                            mt={2}
+                            width="100%"
+                            display="flex"
+                            justifyContent="space-between">
+                            {activeStep === 0 ? (
+                              <MDBox />
+                            ) : (
+                              <MDButton
+                                variant="gradient"
+                                color="light"
+                                onClick={handleBack}>
+                                back
+                              </MDButton>
+                            )}
                             <MDButton
+                              // disabled={isSubmitting}
+                              type="submit"
                               variant="gradient"
-                              color="light"
-                              onClick={handleBack}>
-                              back
+                              color="dark">
+                              {isLastStep ? 'send' : 'next'}
                             </MDButton>
-                          )}
-                          <MDButton
-                            // disabled={isSubmitting}
-                            type="submit"
-                            variant="gradient"
-                            color="dark">
-                            {isLastStep ? 'send' : 'next'}
-                          </MDButton>
+                          </MDBox>
                         </MDBox>
                       </MDBox>
-                    </MDBox>
-                  </Card>
-                </Form>
-              )}
-            </Formik>
-          </Grid>
+                    </Card>
+                  </Form>
+                )}
+              </Formik>
+            </Grid>
+          )}
+        </Grid>
+        <Grid item xs={12} lg={21}>
+          {status === 'success' && (
+            <MDBox
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              height="50%">
+              <Lottie options={defaultOptions} height={400} width={400} />
+              <Typography variant="h4" color="textPrimary">
+                Patient created successfully
+              </Typography>
+            </MDBox>
+          )}
         </Grid>
       </MDBox>
       <Footer />

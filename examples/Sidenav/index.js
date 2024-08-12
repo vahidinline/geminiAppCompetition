@@ -202,7 +202,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
             <SidenavCollapse
               key={key}
               name={name}
-              icon={icon}
+              // icon={icon}
               active={key === collapseName}
               open={openCollapse === key}
               onClick={() =>

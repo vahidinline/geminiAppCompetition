@@ -20,6 +20,7 @@ function BookingCard({
   duration,
   notes,
   action,
+  children,
 }) {
   const instructions = `
   For this exercise, you should complete ${sets} sets.
@@ -27,6 +28,7 @@ function BookingCard({
   You should rest for ${rest} between each set.
   After completing all sets of this exercise, rest for a total of ${duration} before moving on to the next exercise.
 `;
+
   return (
     <Card>
       <MDBox
@@ -87,6 +89,7 @@ function BookingCard({
             {notes}
           </MDTypography>
         </MDAlert>
+        {children}
       </MDBox>
     </Card>
   );

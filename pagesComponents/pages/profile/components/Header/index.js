@@ -7,36 +7,26 @@ import MDTypography from '/components/MDTypography';
 import breakpoints from '/assets/theme/base/breakpoints';
 
 function Header({
-  children,
   name,
-  limitations,
-  weight,
-  height,
   age,
   sex,
   occupation,
+  weight,
+  height,
   activityLevel,
   previousDiagnoses,
-  surgeryDetails,
-  healthConditions,
+  pastSurgeries,
+  phone,
+  insuranceInformation,
+  currentMedications,
+  allergies,
+  medicalNotes,
+  diet,
+  exerciseRoutine,
+  smokingHabits,
+  alcoholConsumption,
+  otherLifestyleFactors,
 }) {
-  // Extract diagnoses names and surgery details
-  const diagnoses = previousDiagnoses
-    .map((diagnosis) => diagnosis.diagnosis)
-    .join(', ');
-  const surgeries = `${surgeryDetails.surgeryType} on ${surgeryDetails.dateOfSurgery}`;
-
-  // Create the bio
-  const bio = `
-    ${name} is a ${age}-year-old ${sex} who works as a ${occupation}.
-    With a height of ${height} cm and a weight of ${weight} kg, ${name} has a(n) ${activityLevel} activity level.
-    They have been diagnosed with ${diagnoses}, and have undergone the following surgery: ${surgeries}.
-    Currently, ${name} is managing the following health conditions: ${healthConditions.join(
-    ', '
-  )}.
-    Due to these conditions, they face the following limitations: ${limitations}.
-  `;
-
   const [tabsOrientation, setTabsOrientation] = useState('horizontal');
   const [tabValue, setTabValue] = useState(0);
 
@@ -54,6 +44,27 @@ function Header({
   }, []);
 
   const handleSetTabValue = (event, newValue) => setTabValue(newValue);
+
+  const bio = `
+    ${name} is a ${age}-year-old ${sex} who works as a ${occupation}.
+    With a height of ${height} cm and a weight of ${weight} kg, ${name} maintains a ${activityLevel} activity level.
+    They have been diagnosed with ${previousDiagnoses} and have undergone the following surgery: ${pastSurgeries}.
+    Currently, ${name} is managing health conditions such as ${medicalNotes}.
+
+    Additional details include:
+    - Phone: ${phone}
+
+    - Insurance: ${insuranceInformation}
+    - Current Medications: ${currentMedications}
+    - Allergies: ${allergies}
+
+
+    - Diet: ${diet}
+    - Exercise Routine: ${exerciseRoutine}
+    - Smoking Habits: ${smokingHabits}
+    - Alcohol Consumption: ${alcoholConsumption}
+    - Other Lifestyle Factors: ${otherLifestyleFactors}
+  `;
 
   return (
     <MDBox position="relative" mb={5}>
@@ -89,7 +100,7 @@ function Header({
           <Grid item>
             <MDBox height="100%" mt={0.5} lineHeight={1}>
               <MDTypography variant="h5" fontWeight="medium">
-                {name}'s Medical history
+                {name}'s Medical History
               </MDTypography>
             </MDBox>
             <MDBox height="100%" mt={5.5} lineHeight={1}>
@@ -99,7 +110,6 @@ function Header({
             </MDBox>
           </Grid>
         </Grid>
-        {children}
       </Card>
     </MDBox>
   );
@@ -112,28 +122,35 @@ Header.defaultProps = {
 
 // Typechecking props for the Header
 Header.propTypes = {
-  children: PropTypes.node,
   name: PropTypes.string.isRequired,
-  limitations: PropTypes.string.isRequired,
-  weight: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
   age: PropTypes.number.isRequired,
   sex: PropTypes.string.isRequired,
   occupation: PropTypes.string.isRequired,
+  weight: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
   activityLevel: PropTypes.string.isRequired,
-  previousDiagnoses: PropTypes.arrayOf(
-    PropTypes.shape({
-      diagnosis: PropTypes.string.isRequired,
-      date: PropTypes.string.isRequired,
-      treatment: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  surgeryDetails: PropTypes.shape({
-    surgeryType: PropTypes.string.isRequired,
-    dateOfSurgery: PropTypes.string.isRequired,
-    recoveryStage: PropTypes.string,
-  }).isRequired,
-  healthConditions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  previousDiagnoses: PropTypes.string.isRequired,
+  pastSurgeries: PropTypes.string.isRequired,
+  phone: PropTypes.string.isRequired,
+  emergencyContact: PropTypes.string.isRequired,
+  emergencyPhone: PropTypes.string.isRequired,
+  insuranceInformation: PropTypes.string.isRequired,
+  currentMedications: PropTypes.string.isRequired,
+  allergies: PropTypes.string.isRequired,
+  medicalNotes: PropTypes.string.isRequired,
+  reasonOfHospitalization: PropTypes.string.isRequired,
+  dateOfAdmission: PropTypes.string.isRequired,
+  dateOfDischarge: PropTypes.string.isRequired,
+  lengthOfStay: PropTypes.number.isRequired,
+  procedurePerformed: PropTypes.string.isRequired,
+  hospitalDischargeSummary: PropTypes.string.isRequired,
+  followUpInstructions: PropTypes.string.isRequired,
+  diet: PropTypes.string.isRequired,
+  exerciseRoutine: PropTypes.string.isRequired,
+  smokingHabits: PropTypes.string.isRequired,
+  alcoholConsumption: PropTypes.string.isRequired,
+  otherLifestyleFactors: PropTypes.string.isRequired,
+  limitations: PropTypes.string.isRequired,
 };
 
 export default Header;

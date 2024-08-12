@@ -1,18 +1,3 @@
-/**
-=========================================================
-* NextJS Material Dashboard 2 PRO - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/nextjs-material-dashboard-pro
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState } from 'react';
 
 import Link from 'next/link';
@@ -22,7 +7,8 @@ import Card from '@mui/material/Card';
 import Switch from '@mui/material/Switch';
 import Grid from '@mui/material/Grid';
 import MuiLink from '@mui/material/Link';
-
+import Logo from '../../../../assets/images/logo.jpg';
+console.log('Logo', Logo);
 // @mui icons
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -51,7 +37,7 @@ function Basic() {
       <Card>
         <MDBox
           variant="gradient"
-          bgColor="dark"
+          bgColor="#fff"
           borderRadius="lg"
           coloredShadow="dark"
           mx={2}
@@ -59,8 +45,10 @@ function Basic() {
           p={2}
           mb={1}
           textAlign="center">
-          <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
-            Sign in
+          <img src={Logo.src} alt="logo" width={100} height={30} />
+
+          <MDTypography variant="h4" fontWeight="medium" color="#3f3b6c" mt={1}>
+            Sign in to Smart Recovery
           </MDTypography>
           <Grid
             container
@@ -92,7 +80,7 @@ function Basic() {
                 onClick={(e) =>
                   //navigate to the dashboard
 
-                  router.push('/dashboard')
+                  router.push('/dashboard/patient')
                 }
                 variant="gradient"
                 color="dark"

@@ -141,9 +141,7 @@ function DataTable({
                 ))}
                 <TableCell>
                   <MDButton
-                    onClick={() =>
-                      router.push(`/patient/${row.original.patientID}`)
-                    }
+                    onClick={() => router.push(`/patient/${row.original._id}`)}
                     variant="gradient"
                     color="light">
                     View

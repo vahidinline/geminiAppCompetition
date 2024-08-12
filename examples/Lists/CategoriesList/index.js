@@ -1,18 +1,3 @@
-/**
-=========================================================
-* NextJS Material Dashboard 2 PRO - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/nextjs-material-dashboard-pro
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import Link from 'next/link';
 import MDButton from '/components/MDButton';
 
@@ -28,9 +13,14 @@ import BookingCard from '/examples/Cards/BookingCard';
 import MDBox from '/components/MDBox';
 import MDTypography from '/components/MDTypography';
 import { Image } from '@mui/icons-material';
+import { useEffect, useState } from 'react';
 
-function CategoriesList({ title, activityPlan, shadow }) {
+function CategoriesList({ patientId }) {
+  console.log('patientId in list', patientId);
+  const [activityPlan, setActivityPlan] = useState([]);
+  const [notes, setNotes] = useState([]);
   console.log('activityPlan', activityPlan);
+  console.log('notes', notes);
   const renderActivityPlan = activityPlan.map(({ day, exercises, i }) => (
     <MDBox
       key={i}
@@ -51,14 +41,28 @@ function CategoriesList({ title, activityPlan, shadow }) {
             key={i}>
             <BookingCard
               day={day}
-              image={exercise.image}
+              image={exercise.exerciseImage}
               title={exercise.name}
               description={exercise.description}
               sets={exercise.set}
               reps={exercise.reps}
               duration={exercise.duration}
               rest={exercise.rest}
-              notes={exercise.notes}
+              notes={notes}
+              children={
+                <MDBox
+                  display="flex"
+                  justifyContent="space-around"
+                  alignItems="center"
+                  pb={3}>
+                  <MDButton size="small" variant="contained" color="success">
+                    Accept
+                  </MDButton>
+                  <MDButton size="small" variant="contained" color="warning">
+                    Reject
+                  </MDButton>
+                </MDBox>
+              }
             />
           </div>
         ))}
@@ -85,6 +89,23 @@ function CategoriesList({ title, activityPlan, shadow }) {
     </MDBox>
   ));
 
+  const getPatientActivityPlan = async () => {
+    try {
+      const response = await fetch(
+        `https://aibackendfitlinez.azurewebsites.net/patient/getActivityPlan/${patientId}`
+      );
+      const data = await response.json();
+      setActivityPlan(data.activityPlan?.activityPlan);
+      setNotes(data.activityPlan?.generalNotes);
+    } catch (error) {
+      console.error('Error fetching patient activity plan', error);
+    }
+  };
+
+  useEffect(() => {
+    getPatientActivityPlan();
+  }, [patientId]);
+
   return (
     <Card>
       <MDBox pt={2} px={2}>
@@ -92,7 +113,7 @@ function CategoriesList({ title, activityPlan, shadow }) {
           variant="h6"
           fontWeight="medium"
           textTransform="capitalize">
-          {title}
+          {/* {title} */}
         </MDTypography>
       </MDBox>
       <MDBox p={2}>
