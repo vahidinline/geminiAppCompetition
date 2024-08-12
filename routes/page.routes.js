@@ -173,11 +173,11 @@ const pageRoutes = [
   {
     name: 'application',
     collapse: [
-      {
-        name: 'kanban',
-        route: '/applications/kanban',
-        icon: 'widgets',
-      },
+      // {
+      //   name: 'kanban',
+      //   route: '/applications/kanban',
+      //   icon: 'widgets',
+      // },
       {
         name: 'wizard',
         route: '/applications/wizard',

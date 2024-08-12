@@ -13,48 +13,48 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState } from "react";
+import { useState } from 'react';
 
-import dynamic from "next/dynamic";
+import dynamic from 'next/dynamic';
 
 // @asseinfo/react-kanban components
-const Board = dynamic(() => import("@asseinfo/react-kanban"), { ssr: false });
+// const Board = dynamic(() => import("@asseinfo/react-kanban"), { ssr: false });
 
 // react-html-parser components
-import parse from "html-react-parser";
+import parse from 'html-react-parser';
 
 // uuid is a library for generating unique id
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 
 // @mui material components
-import Icon from "@mui/material/Icon";
+import Icon from '@mui/material/Icon';
 
 // NextJS Material Dashboard 2 PRO components
-import MDBox from "/components/MDBox";
-import MDButton from "/components/MDButton";
-import MDTypography from "/components/MDTypography";
-import MDInput from "/components/MDInput";
+import MDBox from '/components/MDBox';
+import MDButton from '/components/MDButton';
+import MDTypography from '/components/MDTypography';
+import MDInput from '/components/MDInput';
 
 // NextJS Material Dashboard 2 PRO examples
-import DashboardLayout from "/examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "/examples/Navbars/DashboardNavbar";
-import Footer from "/examples/Footer";
+import DashboardLayout from '/examples/LayoutContainers/DashboardLayout';
+import DashboardNavbar from '/examples/Navbars/DashboardNavbar';
+import Footer from '/examples/Footer';
 
 // Kanban application components
-import Header from "/pagesComponents/applications/kanban/components/Header";
+import Header from '/pagesComponents/applications/kanban/components/Header';
 
 // Data
-import boards from "/pagesComponents/applications/kanban/data";
+import boards from '/pagesComponents/applications/kanban/data';
 
 // NextJS Material Dashboard 2 PRO context
-import { useMaterialUIController } from "/context";
+import { useMaterialUIController } from '/context';
 
 function Kanban() {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
 
   const [newCardForm, setNewCardForm] = useState(false);
-  const [formValue, setFormValue] = useState("");
+  const [formValue, setFormValue] = useState('');
 
   const openNewCardForm = (event, id) => setNewCardForm(id);
   const closeNewCardForm = () => setNewCardForm(false);
@@ -76,15 +76,14 @@ function Kanban() {
             functions: { pxToRem },
             borders: { borderRadius },
           }) => ({
-            "& .react-kanban-column": {
+            '& .react-kanban-column': {
               backgroundColor: darkMode ? background.card : light.main,
               width: pxToRem(450),
               margin: `0 ${pxToRem(10)}`,
               padding: pxToRem(20),
               borderRadius: borderRadius.lg,
             },
-          })}
-        >
+          })}>
           <Board
             initialBoard={boards}
             allowAddCard
@@ -95,20 +94,17 @@ function Kanban() {
                   display="flex"
                   justifyContent="space-between"
                   alignItems="center"
-                  mb={3}
-                >
+                  mb={3}>
                   <MDTypography variant="h6">{title}</MDTypography>
                   <MDButton
                     size="small"
                     iconOnly
-                    onClick={(event) => openNewCardForm(event, id)}
-                  >
+                    onClick={(event) => openNewCardForm(event, id)}>
                     <Icon
                       sx={{
-                        fontWeight: "bold",
+                        fontWeight: 'bold',
                         color: ({ palette: { dark } }) => dark.main,
-                      }}
-                    >
+                      }}>
                       add
                     </Icon>
                   </MDButton>
@@ -129,9 +125,8 @@ function Kanban() {
                         size="small"
                         onClick={() => {
                           addCard({ id: uuidv4(), template: formValue });
-                          setFormValue("");
-                        }}
-                      >
+                          setFormValue('');
+                        }}>
                         add
                       </MDButton>
                       <MDBox ml={1}>
@@ -139,8 +134,7 @@ function Kanban() {
                           variant="gradient"
                           color="light"
                           size="small"
-                          onClick={closeNewCardForm}
-                        >
+                          onClick={closeNewCardForm}>
                           cancel
                         </MDButton>
                       </MDBox>
@@ -155,7 +149,7 @@ function Kanban() {
                 dragging={dragging.toString() || undefined}
                 display="block"
                 width="calc(450px - 40px)"
-                bgColor={darkMode ? "transparent" : "white"}
+                bgColor={darkMode ? 'transparent' : 'white'}
                 color="text"
                 borderRadius="xl"
                 mt={2.5}
@@ -166,9 +160,8 @@ function Kanban() {
                   border: ({ borders: { borderWidth }, palette: { white } }) =>
                     darkMode ? `${borderWidth[1]} solid ${white.main}` : 0,
                   fontSize: ({ typography: { size } }) => size.md,
-                }}
-              >
-                {typeof template === "string" ? parse(template) : template}
+                }}>
+                {typeof template === 'string' ? parse(template) : template}
               </MDBox>
             )}
             onCardNew={() => null}
